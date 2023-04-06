@@ -5,8 +5,8 @@
 
 int main() {
 	std::cout<<"First branch entry";
-  
-  std::cout<<"Version 1.0";
+  	std::cout<<"Second branch entry";
+  	std::cout<<"Version 1.1";
 
 
 
