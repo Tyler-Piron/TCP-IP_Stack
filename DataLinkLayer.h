@@ -76,6 +76,16 @@ public:
 		return destinationMacAddress;
 	}
 
+	std::string getComboMacs() {
+		std::string outputString;
+		outputString.append("Source MAC Address: ");
+		outputString.append(sourceMacAddress);
+		outputString.append("\n");
+		outputString.append("Destination MAC Address: ");
+		outputString.append(destinationMacAddress);
+		outputString.append("\n");
+		return outputString;
+	}
 };
 
 //An Example of how to run this code:
