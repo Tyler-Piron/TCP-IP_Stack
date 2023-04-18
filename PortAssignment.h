@@ -35,6 +35,18 @@ public:
         return m_destPort;
     }
 
+    std::string getComboPorts() {
+        std::string outputString;
+        outputString.append("Source port: ");
+        outputString.append(std::to_string(m_sourcePort));
+        outputString.append("\n");
+        outputString.append("Destination port: ");
+        outputString.append(std::to_string(m_destPort));
+        outputString.append("\n");
+        return outputString;
+
+    }
+
 private:
     std::string m_applicationLayer;
     int m_sourcePort;
@@ -45,5 +57,3 @@ private:
         return m_sourcePort != m_destPort;
     }
 };
-
-
