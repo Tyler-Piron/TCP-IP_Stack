@@ -13,6 +13,7 @@ private:
 	std::string key;
 	std::string value;
 	std::string textLine;
+	std::string outputString;
 	int wordCount = 0;
 
 public:
@@ -34,54 +35,24 @@ public:
 						numberNeeded = testStrLength - i - 5;
 						value = testString.substr(i + 1, numberNeeded);
 						ApplicationMap[value] = key;
-						std::cout << "Key: " << ApplicationMap[value] << " Value: " << value << " \n";
+						//std::cout << "Key: " << ApplicationMap[value] << " Value: " << value << " \n";
+						outputString.append(ApplicationMap[value]);
+						outputString.append(value);
+						outputString.append("\n");
 						break;
 					}
 
 				}
-				//if (flag == 1){
-					//std::cout << "A space was detected";
-				//}
-
-
-
-
-
-
-
-				/*std::cout << "File has opened\n";
-				do {
-
-					testFile >> textLine;
-					wordCount++;
-					int strLength = textLine.length();
-					if (textLine == "\r\n"){
-						break;
-
-					}
-					else {
-						if (wordCount % 2 == 0) {
-							key = textLine;
-						}
-						else {
-
-							value = textLine;
-							ApplicationMap[value] = key;
-							std::cout << "Key: "<< ApplicationMap[value] << " Value: " << value << " \n";
-
-						}
-					}
-
-				} while (!testFile.fail());
-
-			}
-			else {
-				std::cout << "File could not be opened\n";
-			}*/
+				
 			}
 
 		};
 
+	}
+
+
+	std::string getApplicationLayer() {
+		return outputString;
 	}
 
 };
