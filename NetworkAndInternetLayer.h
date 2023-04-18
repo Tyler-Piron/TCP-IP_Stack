@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include<string>
@@ -20,7 +19,7 @@ private:
 public:
 
 	//function that generates a random IPV4 IP and returns it
-	std::string setIP(){
+	std::string setIP() {
 		//sets the IP to empty to be generated
 		IP = "";
 		srand(time(NULL));
@@ -43,7 +42,7 @@ public:
 
 
 	//sets the Source and Destination IP adress using previous function
-	void setSourceandDestinationIP(){
+	void setSourceandDestinationIP() {
 
 		//generates adresses for source and destination
 		sourceIP = setIP();
@@ -56,7 +55,7 @@ public:
 			destinationIP = setIP();
 		}
 	}
-
+	
 	//returns Source IP
 	std::string getSourceIP() {
 		return sourceIP;
@@ -67,6 +66,16 @@ public:
 		return destinationIP;
 	}
 
+	std::string getComboIPs() {
+		std::string outputString;
+		outputString.append("Source IP: ");
+		outputString.append(destinationIP);
+		outputString.append("\n");
+		outputString.append("Destination IP: ");
+		outputString.append(sourceIP);
+		outputString.append("\n");
+		return outputString;
+	}
 };
 
 //An Example of how to run this code:
@@ -83,5 +92,3 @@ public:
 	//std::cout << "Source Adress is " << IPadresses.getSourceIP() << " \n";
 	//std::cout << "Destination Adress is " << IPadresses.getDestinationIP() << " \n";
 //}
-
-
