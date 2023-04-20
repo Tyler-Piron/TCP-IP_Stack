@@ -1,10 +1,11 @@
 #pragma once
 
 #include<string>
+#include "TCP_Message_TopLayer.h"
 
 
 //Class to generate and return IPV4 Source and Destination IP Adresses
-class IPAddress {
+class IPAddress: public TCP_Message_TopLayer {
 private:
 	//Source and destinaion addresses to be returned.
 	std::string sourceIP;
