@@ -10,6 +10,17 @@ private:
 	std::string sourceIP;
 	std::string destinationIP;
 
+	//declares all neccecary header information with specified Byte/Bit sizes.
+	unsigned int version : 4, IHL : 4;
+	unsigned int DSCP : 6, ECN : 2;
+	std:: uint16_t totalLength;
+	std::uint16_t identification;
+	unsigned int flags : 3, fragmentOffset : 13;
+	std::uint8_t timeToLive;
+	std::uint8_t protocol;
+	std::uint16_t headerChecksum;
+
+
 	//General IP address to be used in a function that generates random IP addresses
 	std::string IP;
 
@@ -17,6 +28,9 @@ private:
 	int randomNum;
 
 public:
+
+	//constructor for the Class that Initializes all variables.
+	IPAddress() = default;
 
 	//function that generates a random IPV4 IP and returns it
 	std::string setIP() {
@@ -55,7 +69,24 @@ public:
 			destinationIP = setIP();
 		}
 	}
-	
+
+	void setHeaderInfo() {
+
+		version = 3;
+		IHL = 9;
+		DSCP = 8;
+		ECN = 2;
+		totalLength = 32522;
+		identification = 15445;
+		flags = 6;
+		fragmentOffset = 50;
+		timeToLive = 132;
+		protocol = 250;
+		headerChecksum = 10113;
+
+	}
+
+
 	//returns Source IP
 	std::string getSourceIP() {
 		return sourceIP;
@@ -76,6 +107,24 @@ public:
 		outputString.append("\n");
 		return outputString;
 	}
+
+	void DisplayHeaderInfo() {
+		std::cout << "IPv4 Packet Header Information:\n";
+		std::cout << "Version: " << version << "\n";
+		std::cout << "IHL: " << IHL << "\n";
+		std::cout << "DSCP: " << DSCP << "\n";
+		std::cout << "ECN: " << ECN << "\n";
+		std::cout << "Total Length: " << totalLength << "\n";
+		std::cout << "Identification: " << identification << "\n";
+		std::cout << "Flags: " << flags << "\n";
+		std::cout << "Fragment Offset: " << fragmentOffset << "\n";
+		std::cout << "Time To Live: " << int(timeToLive) << "\n";
+		std::cout << "Protocol: " << int(protocol) << "\n";
+		std::cout << "Header Checksum: " << headerChecksum << "\n";
+		std::cout << "Source IP Address: " << getSourceIP() << "\n";
+		std::cout << "Destination IP Address: " << getDestinationIP() << "\n";
+
+	}
 };
 
 //An Example of how to run this code:
@@ -91,4 +140,7 @@ public:
 
 	//std::cout << "Source Adress is " << IPadresses.getSourceIP() << " \n";
 	//std::cout << "Destination Adress is " << IPadresses.getDestinationIP() << " \n";
+
+	//IPadresses.setHeaderInfo();
+	//IPadresses.DisplayHeaderInfo();
 //}
