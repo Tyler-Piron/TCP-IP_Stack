@@ -7,10 +7,12 @@
 
 #include<string>
 #include<time.h>
+#include<cstring>
+#include "TCP_Message_TopLayer.h"
 
 
 //Class to generate and return Mac Adresses
-class MacAddress {
+class MacAddress: public TCP_Message_TopLayer {
 private:
 	//Source and destinaion addresses to be returned.
 	std::string sourceMacAddress;
@@ -25,7 +27,15 @@ private:
 	//used in Mac Address generation by assigning it a value from the array
 	int randomItemInArray;
 
+	std:: uint64_t preamble : 56, startOfFrameDelimiter : 8;
+	std::uint16_t  type;
+	std::uint32_t CRC;
+	char* interFrameGap = new char[12];
+	
+
 public:
+
+	MacAddress() = default;
 
 	//function that generates a random Mac Adress using info from the array and returns it
 	std::string setMacAddress() {
@@ -66,6 +76,14 @@ public:
 		}
 	}
 
+	void setFrameFormat() {
+		preamble = 254678;
+		startOfFrameDelimiter = 250;
+		CRC = 1012;  
+		type = 4500; 
+		memcpy(interFrameGap, "284382913423", 12);
+	}
+
 	//returns Source Mac Address
 	std::string getSourceMacAddress() {
 		return sourceMacAddress;
@@ -76,16 +94,21 @@ public:
 		return destinationMacAddress;
 	}
 
-	std::string getComboMacs() {
-		std::string outputString;
-		outputString.append("Source MAC Address: ");
-		outputString.append(sourceMacAddress);
-		outputString.append("\n");
-		outputString.append("Destination MAC Address: ");
-		outputString.append(destinationMacAddress);
-		outputString.append("\n");
-		return outputString;
+	void displayFrameFormat(){
+		std::cout << "Source MAC Address: " << getSourceMacAddress() << "\n";
+		std::cout << "Destination MAC Address: " << getDestinationMacAddress() << "\n";
+		std::cout << "Preamble: " << preamble << "\n";
+		std::cout << "Start Of Frame Delimiter: " << startOfFrameDelimiter << "\n";
+		std::cout << "CRC: " << CRC << "\n";
+		std::cout << "Type: " << type << "\n";
+		std::cout << "Inter-Frame Format: ";
+		for (int i = 0; i < 12; i++) {
+			std::cout << interFrameGap[i];//Looping 5 times to print out [0],[1],[2],[3],[4]
+		}
+		std::cout << "\n";
+
 	}
+
 };
 
 //An Example of how to run this code:
@@ -101,4 +124,7 @@ public:
 
 	//std::cout << "Source Mac Adress is " << Macadresses.getSourceMacAddress() << " \n";
 	//std::cout << "Destination Mac Adress is " << Macadresses.getDestinationMacAddress() << " \n";
+	// 
+	// Macadresses.setFrameFormat();
+	//Macadresses.displayFrameFormat();
 //}
