@@ -8,11 +8,13 @@
 #include<string>
 #include<time.h>
 #include<cstring>
+#include <iostream>
 #include "TCP_Message_TopLayer.h"
+#include "NetworkAndInternetLayer.h"
 
 
 //Class to generate and return Mac Adresses
-class MacAddress: public TCP_Message_TopLayer {
+class MacAddress : public TCP_Message_TopLayer {
 private:
 	//Source and destinaion addresses to be returned.
 	std::string sourceMacAddress;
@@ -27,11 +29,11 @@ private:
 	//used in Mac Address generation by assigning it a value from the array
 	int randomItemInArray;
 
-	std:: uint64_t preamble : 56, startOfFrameDelimiter : 8;
+	std::uint64_t preamble : 56, startOfFrameDelimiter : 8;
 	std::uint16_t  type;
 	std::uint32_t CRC;
 	char* interFrameGap = new char[12];
-	
+
 
 public:
 
@@ -79,8 +81,8 @@ public:
 	void setFrameFormat() {
 		preamble = 254678;
 		startOfFrameDelimiter = 250;
-		CRC = 1012;  
-		type = 4500; 
+		CRC = 1012;
+		type = 4500;
 		memcpy(interFrameGap, "284382913423", 12);
 	}
 
@@ -94,7 +96,7 @@ public:
 		return destinationMacAddress;
 	}
 
-	void displayFrameFormat(){
+	void displayFrameFormat() {
 		std::cout << "Source MAC Address: " << getSourceMacAddress() << "\n";
 		std::cout << "Destination MAC Address: " << getDestinationMacAddress() << "\n";
 		std::cout << "Preamble: " << preamble << "\n";
@@ -128,3 +130,4 @@ public:
 	// Macadresses.setFrameFormat();
 	//Macadresses.displayFrameFormat();
 //}
+
