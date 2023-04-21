@@ -1,11 +1,13 @@
 #pragma once
 
 #include<string>
+#include<ctime>
 #include "TCP_Message_TopLayer.h"
+#include <iostream>
 
 
 //Class to generate and return IPV4 Source and Destination IP Adresses
-class IPAddress: public TCP_Message_TopLayer {
+class IPAddress : public TCP_Message_TopLayer {
 private:
 	//Source and destinaion addresses to be returned.
 	std::string sourceIP;
@@ -14,7 +16,7 @@ private:
 	//declares all neccecary header information with specified Byte/Bit sizes.
 	unsigned int version : 4, IHL : 4;
 	unsigned int DSCP : 6, ECN : 2;
-	std:: uint16_t totalLength;
+	std::uint16_t totalLength;
 	std::uint16_t identification;
 	unsigned int flags : 3, fragmentOffset : 13;
 	std::uint8_t timeToLive;
@@ -145,3 +147,4 @@ public:
 	//IPadresses.setHeaderInfo();
 	//IPadresses.DisplayHeaderInfo();
 //}
+
