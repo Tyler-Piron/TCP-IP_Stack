@@ -3,56 +3,37 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "HTTPRequestLine.h"
+#include "HTTPHeader.h"
+#include "TCP_Message_TopLayer.h"
 
 
-class ApplicationLayer {
-protected:
-	std::map<std::string, std::string>ApplicationMap;
 
-private:
-	std::string key;
-	std::string value;
-	std::string textLine;
-	std::string outputString;
-	int wordCount = 0;
+class ApplicationLayer : public TCP_Message_TopLayer {
 
 public:
-	void readFile() {
-		std::ifstream testFile("testingInput.txt");
-		if (testFile.is_open()) {
-			std::string testString;
-			int testStrLength;
-			int numberNeeded;
+	HTTPRequestLine requestLine{};
+	HTTPHeader httpHeader{};
 
-			while (getline(testFile, testString)) {
-				//std::cout << testString << "\n";
-				
-				testStrLength = testString.length();
+	void setRequestLine() {
+		std::ifstream testingFile("testingInput.txt");
+		if (testingFile.is_open()) {
+			std::string testingString;
+			getline(testingFile, testingString);
+			requestLine.assignValues(testingString);
+		}
+	}
 
-				for (int i = 0; i < testStrLength; i++) {
-					if (isspace(testString.at(i))){
-						key = testString.substr(0, i);
-						numberNeeded = testStrLength - i - 5;
-						value = testString.substr(i + 1, numberNeeded);
-						ApplicationMap[value] = key;
-						//std::cout << "Key: " << ApplicationMap[value] << " Value: " << value << " \n";
-						outputString.append(ApplicationMap[value]);
-						outputString.append(value);
-						outputString.append("\n");
-						break;
-					}
+	void setHeader() {
+		httpHeader.readFile();
+	}
 
-				}
-				
-			}
-
-		};
-
+	void displayApplicationLayer() {
+		requestLine.displayRequestLine();
+		httpHeader.displayHTTPHeader();
 	}
 
 
-	std::string getApplicationLayer() {
-		return outputString;
-	}
+
 
 };
