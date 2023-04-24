@@ -1,14 +1,26 @@
 #pragma once
+
 #include <string>
 #include <ctime>
 #include <iostream>
+#include "ApplicationLayer.h"
+#include "TCP_Message_TopLayer.h"
+
 using namespace std;
 
-class TransportLayer {
+class TransportLayer : public TCP_Message_TopLayer {
 public:
-    TransportLayer(const std::string& applicationLayer)
-        : m_applicationLayer(applicationLayer), m_sourcePort(0), m_destPort(0), m_sequenceNum(18294), m_ackNum(27432), m_dataOffset(5), m_res(0), m_flags(9), m_windowSize(4096), m_checksum(0), m_urgentPtr(0), m_optionsValue(0) {
+    TransportLayer()
+        : m_sourcePort(0), m_destPort(0), m_sequenceNum(18294), m_ackNum(27432), m_dataOffset(5), m_res(0), m_flags(9), m_windowSize(4096), m_checksum(0), m_urgentPtr(0), m_optionsValue(0) {
+        ApplicationLayer m_applicationLayer;
+
     }
+    TransportLayer(ApplicationLayer appLayer)
+        : m_sourcePort(0), m_destPort(0), m_sequenceNum(18294), m_ackNum(27432), m_dataOffset(5), m_res(0), m_flags(9), m_windowSize(4096), m_checksum(0), m_urgentPtr(0), m_optionsValue(0) {
+        m_applicationLayer = appLayer;
+
+    }
+
 
     void assignPorts()
     {
@@ -24,6 +36,13 @@ public:
             m_sourcePort = std::rand() % 64511 + 1025;
             m_destPort = std::rand() % 64511 + 1025;
         }
+    }
+
+    void displayTransLayer() {
+        m_applicationLayer.displayApplicationLayer();
+
+        std::cout << "Source Port: " << getSourcePort() << "\n";
+        std::cout << "Destination Port: " << getDestPort() << "\n";
     }
 
     int getSourcePort() const
@@ -81,8 +100,12 @@ public:
         return m_optionsValue;
     }
 
+    ApplicationLayer getAppLayer() {
+        return m_applicationLayer;
+    }
+
 private:
-    std::string m_applicationLayer;
+    ApplicationLayer m_applicationLayer;
     int m_sourcePort;
     int m_destPort;
     int m_sequenceNum;
@@ -100,4 +123,3 @@ private:
         return m_sourcePort != m_destPort;
     }
 };
-
