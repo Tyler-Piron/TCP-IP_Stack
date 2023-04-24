@@ -4,6 +4,9 @@
 #include<ctime>
 #include "TCP_Message_TopLayer.h"
 #include <iostream>
+#include "TransportLayer.h"
+#include "ApplicationLayer.h"
+
 
 
 //Class to generate and return IPV4 Source and Destination IP Adresses
@@ -22,6 +25,7 @@ private:
 	std::uint8_t timeToLive;
 	std::uint8_t protocol;
 	std::uint16_t headerChecksum;
+	TransportLayer movingTransLayer;
 
 
 	//General IP address to be used in a function that generates random IP addresses
@@ -33,7 +37,21 @@ private:
 public:
 
 	//constructor for the Class that Initializes all variables.
-	IPAddress() = default;
+	IPAddress() {
+		TransportLayer movingTransLayer{};
+		setIP();
+		setSourceandDestinationIP();
+		setHeaderInfo();
+	}
+
+	IPAddress(TransportLayer transLayer) {
+		movingTransLayer = transLayer;
+		setIP();
+		setSourceandDestinationIP();
+		setHeaderInfo();
+
+
+	}
 
 	//function that generates a random IPV4 IP and returns it
 	std::string setIP() {
@@ -112,6 +130,8 @@ public:
 	}
 
 	void DisplayHeaderInfo() {
+		movingTransLayer.displayTransLayer();
+
 		std::cout << "IPv4 Packet Header Information:\n";
 		std::cout << "Version: " << version << "\n";
 		std::cout << "IHL: " << IHL << "\n";
@@ -147,4 +167,3 @@ public:
 	//IPadresses.setHeaderInfo();
 	//IPadresses.DisplayHeaderInfo();
 //}
-
