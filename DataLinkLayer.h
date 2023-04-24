@@ -29,6 +29,8 @@ private:
 	//used in Mac Address generation by assigning it a value from the array
 	int randomItemInArray;
 
+	IPAddress movingNetworkLayer;
+
 	std::uint64_t preamble : 56, startOfFrameDelimiter : 8;
 	std::uint16_t  type;
 	std::uint32_t CRC;
@@ -37,7 +39,18 @@ private:
 
 public:
 
-	MacAddress() = default;
+	MacAddress() {
+		IPAddress movingNetworkLayer{};
+		setSourceandDestinationMacAddress();
+		setFrameFormat();
+
+	}
+
+	MacAddress(IPAddress settingNetworkLayer) {
+		movingNetworkLayer = settingNetworkLayer;
+		setSourceandDestinationMacAddress();
+		setFrameFormat();
+	}
 
 	//function that generates a random Mac Adress using info from the array and returns it
 	std::string setMacAddress() {
@@ -97,6 +110,8 @@ public:
 	}
 
 	void displayFrameFormat() {
+		movingNetworkLayer.DisplayHeaderInfo();
+
 		std::cout << "Source MAC Address: " << getSourceMacAddress() << "\n";
 		std::cout << "Destination MAC Address: " << getDestinationMacAddress() << "\n";
 		std::cout << "Preamble: " << preamble << "\n";
@@ -109,6 +124,8 @@ public:
 		}
 		std::cout << "\n";
 
+
+		
 	}
 
 };
@@ -130,4 +147,3 @@ public:
 	// Macadresses.setFrameFormat();
 	//Macadresses.displayFrameFormat();
 //}
-
