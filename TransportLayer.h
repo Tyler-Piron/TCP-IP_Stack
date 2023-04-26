@@ -90,7 +90,7 @@ public:
         return m_checksum;
     }
 
-    int32_t getUrgentPtr() const
+    int16_t getUrgentPtr() const
     {
         return m_urgentPtr;
     }
