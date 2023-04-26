@@ -65,17 +65,17 @@ public:
         return m_ackNum;
     }
 
-    int4_t getDataOffset() const
+    int8_t getDataOffset() const
     {
         return m_dataOffset;
     }
 
-    int6_t getRes() const
+    int8_t getRes() const
     {
         return m_res;
     }
 
-    int6_t getFlags() const
+    int8_t getFlags() const
     {
         return m_flags;
     }
@@ -106,17 +106,17 @@ public:
 
 private:
     ApplicationLayer m_applicationLayer;
-    int m_sourcePort;
-    int m_destPort;
-    int m_sequenceNum;
-    int m_ackNum;
-    int m_dataOffset;
-    int m_res;
-    int m_flags;
-    int m_windowSize;
-    int m_checksum;
-    int m_urgentPtr;
-    int m_optionsValue;
+    int16_t m_sourcePort;
+    int16_t m_destPort;
+    int32_t m_sequenceNum;
+    int32_t m_ackNum;
+    int8_t m_dataOffset;
+    int8_t m_res;
+    int8_t m_flags;
+    int16_t m_windowSize;
+    int16_t m_checksum;
+    int16_t m_urgentPtr;
+    int32_t m_optionsValue;
 
     bool portsAreValid() const
     {
