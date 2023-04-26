@@ -65,17 +65,17 @@ public:
         return m_ackNum;
     }
 
-    int8_t getDataOffset() const
+    int16_t getDataOffset() const
     {
         return m_dataOffset;
     }
 
-    int8_t getRes() const
+    int16_t getRes() const
     {
         return m_res;
     }
 
-    int8_t getFlags() const
+    int16_t getFlags() const
     {
         return m_flags;
     }
@@ -110,9 +110,9 @@ private:
     int16_t m_destPort;
     int32_t m_sequenceNum;
     int32_t m_ackNum;
-    int8_t m_dataOffset;
-    int8_t m_res;
-    int8_t m_flags;
+    int16_t m_dataOffset;
+    int16_t m_res;
+    int16_t m_flags;
     int16_t m_windowSize;
     int16_t m_checksum;
     int16_t m_urgentPtr;
