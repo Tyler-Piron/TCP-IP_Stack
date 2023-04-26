@@ -45,57 +45,57 @@ public:
         std::cout << "Destination Port: " << getDestPort() << "\n";
     }
 
-    int getSourcePort() const
+    int16_t getSourcePort() const
     {
         return m_sourcePort;
     }
 
-    int getDestPort() const
+    int16_t getDestPort() const
     {
         return m_destPort;
     }
 
-    int getSequenceNum() const
+    int32_t getSequenceNum() const
     {
         return m_sequenceNum;
     }
 
-    int getAckNum() const
+    int32_t getAckNum() const
     {
         return m_ackNum;
     }
 
-    int getDataOffset() const
+    int4_t getDataOffset() const
     {
         return m_dataOffset;
     }
 
-    int getRes() const
+    int6_t getRes() const
     {
         return m_res;
     }
 
-    int getFlags() const
+    int6_t getFlags() const
     {
         return m_flags;
     }
 
-    int getWindowSize() const
+    int16_t getWindowSize() const
     {
         return m_windowSize;
     }
 
-    int getChecksum() const
+    int16_t getChecksum() const
     {
         return m_checksum;
     }
 
-    int getUrgentPtr() const
+    int32_t getUrgentPtr() const
     {
         return m_urgentPtr;
     }
 
-    int getOptionsValue() const
+    int32_t getOptionsValue() const
     {
         return m_optionsValue;
     }
