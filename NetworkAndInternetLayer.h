@@ -132,7 +132,7 @@ public:
 	void DisplayHeaderInfo() {
 		movingTransLayer.displayTransLayer();
 
-		std::cout << "IPv4 Packet Header Information:\n";
+		std::cout << "\nIPv4 Packet Header Information:\n";
 		std::cout << "Version: " << version << "\n";
 		std::cout << "IHL: " << IHL << "\n";
 		std::cout << "DSCP: " << DSCP << "\n";
@@ -146,6 +146,8 @@ public:
 		std::cout << "Header Checksum: " << headerChecksum << "\n";
 		std::cout << "Source IP Address: " << getSourceIP() << "\n";
 		std::cout << "Destination IP Address: " << getDestinationIP() << "\n";
+		std::cout << "\n";
+
 
 	}
 };
