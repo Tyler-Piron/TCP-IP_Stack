@@ -70,10 +70,10 @@ public:
 	}
 
 	void displayHTTPHeader() {
-		std::cout << outputString;
+		std::cout << getHTTPHeaderString();
 	}
 
-	std::string getApplicationLayer() {
+	std::string getHTTPHeaderString() {
 		return outputString;
 	}
 	
