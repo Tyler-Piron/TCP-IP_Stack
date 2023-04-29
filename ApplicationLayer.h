@@ -9,11 +9,12 @@
 
 
 
-class ApplicationLayer : public TCP_Message_TopLayer {
+class ApplicationLayer {
 
 public:
-	HTTPRequestLine requestLine{};
-	HTTPHeader httpHeader{};
+
+	HTTPRequestLine requestLine;
+	HTTPHeader httpHeader;
 
 	void setRequestLine() {
 		std::ifstream testingFile("testingInput.txt");
@@ -22,15 +23,27 @@ public:
 			getline(testingFile, testingString);
 			requestLine.assignValues(testingString);
 		}
+		else {
+		std::cout << "File not found";
+		}
 	}
 
 	void setHeader() {
 		httpHeader.readFile();
 	}
 
+	std::string getApplicationLayerString() {
+		std::string outputString;
+		outputString = outputString + requestLine.getRequestString();
+		outputString = outputString + httpHeader.getHTTPHeaderString();
+		return outputString;
+	}
+
 	void displayApplicationLayer() {
 		requestLine.displayRequestLine();
 		httpHeader.displayHTTPHeader();
+		std::cout << "\n";
+
 	}
 
 
