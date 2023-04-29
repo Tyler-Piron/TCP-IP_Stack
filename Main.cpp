@@ -1,4 +1,3 @@
-
 #include "ApplicationLayer.h"
 #include "DataLinkLayer.h"
 #include "NetworkandInternetLayer.h"
@@ -7,62 +6,48 @@
 #include <queue>
 #include "TCP_Message_Toplayer.h"
 #include "StringToBinary.h"
-
+#include "Buffer.h"
+#include "FileWriter.h"
+#include "StringToBinary.h"
 
 
 
 int main() {
-	
-	//std::stack<std::string> TCPIPStack;
-	
-	std::queue<TCP_Message_TopLayer> TCPQueue;
+ 
+	Buffer masterBuffer;
+	std::string conversionString;
 
-	ApplicationLayer testingLayer{};
+	ApplicationLayer testingLayer;
 	testingLayer.setHeader();
 	testingLayer.setRequestLine();
-	TCPQueue.push(testingLayer);
+	masterBuffer.push(testingLayer);
+	conversionString += (masterBuffer.frontApp()).getApplicationLayerString();
+
+	TransportLayer testingTransport(masterBuffer.frontApp());
+	masterBuffer.popApp();
+	testingTransport.assignPorts();
+	masterBuffer.push(testingTransport);
+	conversionString += (masterBuffer.frontTrans()).getTransLayerString();
 	
-
-
-	TransportLayer testingTransport(testingLayer);
-	TCPQueue.pop();
-	TCPQueue.push(testingTransport);
-
-	IPAddress networkLayer(testingTransport);
-	TCPQueue.pop();
-	TCPQueue.push(networkLayer);
+	IPAddress networkLayer(masterBuffer.frontTrans());
+	networkLayer.setSourceandDestinationIP();
+	masterBuffer.popTrans();
+	masterBuffer.push(networkLayer);
+	conversionString += (masterBuffer.frontNetwork()).getComboIPs();
 	
-	MacAddress dataLinkLayer(networkLayer);
-	TCPQueue.pop();
-	TCPQueue.push(dataLinkLayer);
-
-	dataLinkLayer.displayFrameFormat();
-
-	//IPAddress IPadresses;
-	//MacAddress Macadresses;
-	//std::string conversionString;
-
+	MacAddress dataLinkLayer(masterBuffer.frontNetwork());
+	masterBuffer.popNetwork();
+	masterBuffer.push(dataLinkLayer);
+	dataLinkLayer.setSourceandDestinationMacAddress();
+	dataLinkLayer.setFrameFormat();
+	conversionString += (masterBuffer.frontData()).getDataLayerString();
 	
-	//testingLayer.httpHeader.readFile();
-	//TCPIPStack.push(testingLayer.httpHeader.getApplicationLayer());
-	//PortAssignment myPortAssignment(testingLayer.httpHeader.getApplicationLayer());
-	//myPortAssignment.assignPorts();
-	//TCPIPStack.push(myPortAssignment.getComboPorts());
-	//IPadresses.setSourceandDestinationIP();
-	//TCPIPStack.push(IPadresses.getComboIPs());
-	//Macadresses.setSourceandDestinationMacAddress();
-	//TCPIPStack.push(Macadresses.getComboMacs());
+	(masterBuffer.frontData()).displayFrameFormat();
 
-	//// I could make a function for this
-	//// Conversion string is the variable holding all the information in one variable format
-	//while (!TCPIPStack.empty()) {
-	//	//Original line I used for printing before switching to conversionString
-	//	//std::cout << TCPIPStack.top() << " ";
-	//	conversionString = conversionString + TCPIPStack.top() + " " + "\n";
-	//	TCPIPStack.pop();
-	//}
-	//// Use to print the conversion string as you need for testing purposes and end result
-	//std::cout <<  conversionString;
+	StringToBinary BinaryOutput{conversionString};
+	FileWriter writer("TCPStringOutput.txt");
+	writer.writeToFile(BinaryOutput.Convert());
+	return 0;
 
 
 }
