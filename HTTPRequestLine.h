@@ -10,7 +10,7 @@ protected:
 	std::string version;
 	int holder = 0;
 	int holder2 = 0;
-	bool urlFlag = false;
+	std::string outputString;
 
 	
 
@@ -20,7 +20,7 @@ public:
 		version = "";
 		holder = 0;
 		holder2 = 0;
-		urlFlag = false;
+		outputString = "";
 	}
 
 	void assignValues(std::string givenString) {
@@ -28,18 +28,15 @@ public:
 			if (isspace(givenString.at(i))) {
 				if (holder == 0 && holder2 == 0) {
 					holder = i;
+					continue;
 				}
 				if (holder != 0 && holder2 == 0) {
 					holder2 = i;
-					if (urlFlag == false){
-						URL = givenString.substr(holder + 2, holder2 - holder - 1);
-						holder = holder2;
-						holder2 = 0;
-					}
-					else {
-						version = givenString.substr(holder + 6, 3);
-						break;
-					}
+					URL = givenString.substr(holder + 2, holder2 - holder - 1);
+					version = givenString.substr(holder2 + 6, 3);
+					holder = holder2;
+					holder2 = 0;
+					break;
 				}
 				
 			}
@@ -47,9 +44,18 @@ public:
 		}
 	}
 	void displayRequestLine() {
-		std::cout << "URL: " << URL << "\n" << "HTTP Version: " << version << "\n";
+		std::cout << getRequestString();
 	}
 
+	std::string getRequestString() {
+		outputString.append("URL: ");
+		outputString.append(URL);
+		outputString.append("\n");
+		outputString.append("HTTP Version: ");
+		outputString.append(version);
+		outputString.append("\n");
+		return outputString;
+	}
 
 	std::string getUrl() {
 		return URL;
