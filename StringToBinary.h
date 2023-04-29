@@ -10,7 +10,7 @@ public:
         std::string binaryString;
         for (char c : input) {
             std::bitset<8> binary(c);
-            binaryStr += binary.to_string() + " ";
+            binaryString += binary.to_string() + " ";
         }
         return binaryString;
     }
