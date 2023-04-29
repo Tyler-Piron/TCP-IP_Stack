@@ -109,20 +109,40 @@ public:
 		return destinationMacAddress;
 	}
 
+	std::string getDataLayerString() {
+		std::string outputString;
+		outputString.append("Source MAC Address: ");
+		outputString.append(getSourceMacAddress());
+		outputString.append("\n");
+		outputString.append("Destination MAC Address: ");
+		outputString.append(getDestinationMacAddress());
+		outputString.append("\n");
+		outputString.append("Preamble: ");
+		outputString.append(to_string(preamble));
+		outputString.append("\n");
+		outputString.append("Start of Frame Delimiter: ");
+		outputString.append(to_string(startOfFrameDelimiter));
+		outputString.append("\n");
+		outputString.append("CRC: ");
+		outputString.append(to_string(CRC));
+		outputString.append("\n");
+		outputString.append("Type: ");
+		outputString.append(to_string(type));
+		outputString.append("\n");
+		outputString.append("Inter-Frame Format : ");
+		return outputString;
+
+	}
+
 	void displayFrameFormat() {
 		movingNetworkLayer.DisplayHeaderInfo();
 
-		std::cout << "Source MAC Address: " << getSourceMacAddress() << "\n";
-		std::cout << "Destination MAC Address: " << getDestinationMacAddress() << "\n";
-		std::cout << "Preamble: " << preamble << "\n";
-		std::cout << "Start Of Frame Delimiter: " << startOfFrameDelimiter << "\n";
-		std::cout << "CRC: " << CRC << "\n";
-		std::cout << "Type: " << type << "\n";
-		std::cout << "Inter-Frame Format: ";
+		std::cout << getDataLayerString();
 		for (int i = 0; i < 12; i++) {
 			std::cout << interFrameGap[i];//Looping 5 times to print out [0],[1],[2],[3],[4]
 		}
 		std::cout << "\n";
+
 
 
 		
