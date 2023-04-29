@@ -11,7 +11,7 @@ using namespace std;
 class TransportLayer : public TCP_Message_TopLayer {
 public:
     TransportLayer()
-        : m_sourcePort(0), m_destPort(0), m_sequenceNum(18294), m_ackNum(27432), m_dataOffset(5), m_res(0), m_flags(9), m_windowSize(4096), m_checksum(0), m_urgentPtr(0), m_optionsValue(0) {
+        : m_sourcePort(0), m_destPort(0), m_sequenceNum(0), m_ackNum(0), m_dataOffset(0), m_res(0), m_flags(9), m_windowSize(0), m_checksum(0), m_urgentPtr(0), m_optionsValue(0) {
         ApplicationLayer m_applicationLayer;
 
     }
@@ -20,6 +20,7 @@ public:
         m_applicationLayer = appLayer;
 
     }
+
 
 
     void assignPorts()
@@ -38,64 +39,78 @@ public:
         }
     }
 
+    std::string getTransLayerString() {
+        std::string outputString;
+        outputString.append("Source Port: ");
+        outputString.append(to_string(getSourcePort()));
+        outputString.append("\n");
+        outputString.append("Destination Port: ");
+        outputString.append(to_string(getDestPort()));
+        outputString.append("\n");
+
+        return outputString;
+
+
+    }
+
     void displayTransLayer() {
         m_applicationLayer.displayApplicationLayer();
 
-        std::cout << "Source Port: " << getSourcePort() << "\n";
-        std::cout << "Destination Port: " << getDestPort() << "\n";
+        std::cout << "\n" << getTransLayerString();
+
     }
 
-    int16_t getSourcePort() const
+    int getSourcePort() const
     {
         return m_sourcePort;
     }
 
-    int16_t getDestPort() const
+    int getDestPort() const
     {
         return m_destPort;
     }
 
-    int32_t getSequenceNum() const
+    int getSequenceNum() const
     {
         return m_sequenceNum;
     }
 
-    int32_t getAckNum() const
+    int getAckNum() const
     {
         return m_ackNum;
     }
 
-    int16_t getDataOffset() const
+    int getDataOffset() const
     {
         return m_dataOffset;
     }
 
-    int16_t getRes() const
+    int getRes() const
     {
         return m_res;
     }
 
-    int16_t getFlags() const
+    int getFlags() const
     {
         return m_flags;
     }
 
-    int16_t getWindowSize() const
+    int getWindowSize() const
     {
         return m_windowSize;
     }
 
-    int16_t getChecksum() const
+    int getChecksum() const
     {
         return m_checksum;
     }
 
-    int16_t getUrgentPtr() const
+    int getUrgentPtr() const
     {
         return m_urgentPtr;
     }
 
-    int32_t getOptionsValue() const
+    int getOptionsValue() const
     {
         return m_optionsValue;
     }
@@ -106,17 +121,17 @@ public:
 
 private:
     ApplicationLayer m_applicationLayer;
-    int16_t m_sourcePort;
-    int16_t m_destPort;
-    int32_t m_sequenceNum;
-    int32_t m_ackNum;
-    int16_t m_dataOffset;
-    int16_t m_res;
-    int16_t m_flags;
-    int16_t m_windowSize;
-    int16_t m_checksum;
-    int16_t m_urgentPtr;
-    int32_t m_optionsValue;
+    int m_sourcePort;
+    int m_destPort;
+    int m_sequenceNum;
+    int m_ackNum;
+    int m_dataOffset;
+    int m_res;
+    int m_flags;
+    int m_windowSize;
+    int m_checksum;
+    int m_urgentPtr;
+    int m_optionsValue;
 
     bool portsAreValid() const
     {
