@@ -6,8 +6,8 @@
 
 class HTTPRequestLine {
 protected:
-	std::string URL;
-	std::string version;
+	std::string URL; // URL string variable
+	std::string version; // version type
 	int holder = 0;
 	int holder2 = 0;
 	std::string outputString;
@@ -23,6 +23,7 @@ public:
 		outputString = "";
 	}
 
+	//assigns values based off the first line of the text file passed through to it
 	void assignValues(std::string givenString) {
 		for (int i = 0; i < givenString.length(); i++) {
 			if (isspace(givenString.at(i))) {
@@ -43,11 +44,11 @@ public:
 			
 		}
 	}
-	void displayRequestLine() {
+	void displayRequestLine() { //displays request line information
 		std::cout << getRequestString();
 	}
 
-	std::string getRequestString() {
+	std::string getRequestString() { // returns the string equivalent of class used in binary conversion
 		outputString.append("URL: ");
 		outputString.append(URL);
 		outputString.append("\n");
