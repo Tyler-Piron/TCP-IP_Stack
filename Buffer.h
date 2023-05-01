@@ -14,13 +14,17 @@
 class Buffer {
 public:
 
+	
+	
 	Buffer() {
+		
+		//creates 4 different queue types, for each type of layer class
 		std::queue<ApplicationLayer> bufferApp;
 		std::queue<TransportLayer> bufferTrans;
 		std::queue<IPAddress> bufferNetwork;
 		std::queue<MacAddress> bufferData;
 	}
-	
+	// function overloaded 4 times for different type of class input
 	void push(ApplicationLayer applLayer) {
 		bufferApp.push(applLayer);
 	}
@@ -34,6 +38,10 @@ public:
 		bufferData.push(macLayer);
 	}
 
+	//4 separate pop functions 
+	//// specifically made as separate functions due to the nature of popping not taking any parameters normally
+	//// it was possible to create an overloaded function w/parameters taken, but decided against this design
+	
 	void popApp() {
 		bufferApp.pop();
 	}
@@ -47,6 +55,8 @@ public:
 		bufferData.pop();
 	}
 
+	
+	// 4 different front functions due to different return data types and a similar reason to the pop function
 	ApplicationLayer frontApp() {
 		if (bufferApp.empty() == false){
 			return bufferApp.front();
