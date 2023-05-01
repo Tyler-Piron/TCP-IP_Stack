@@ -13,11 +13,11 @@ class ApplicationLayer {
 
 public:
 
-	HTTPRequestLine requestLine;
-	HTTPHeader httpHeader;
+	HTTPRequestLine requestLine; // Object created of request line
+	HTTPHeader httpHeader; // Object of http header created
 
-	void setRequestLine() {
-		std::ifstream testingFile("testingInput.txt");
+	void setRequestLine() { // checks if file is open and then calls the appropriate method to assign values to map
+		std::ifstream testingFile("testingInput.txt"); //change this to match .txt file name
 		if (testingFile.is_open()) {
 			std::string testingString;
 			getline(testingFile, testingString);
@@ -28,10 +28,13 @@ public:
 		}
 	}
 
+	//calls method to set the header 
 	void setHeader() {
 		httpHeader.readFile();
 	}
 
+	
+	//returns a string version of the layer information to convert for binary
 	std::string getApplicationLayerString() {
 		std::string outputString;
 		outputString = outputString + requestLine.getRequestString();
@@ -39,6 +42,7 @@ public:
 		return outputString;
 	}
 
+	//displays the application layer information
 	void displayApplicationLayer() {
 		requestLine.displayRequestLine();
 		httpHeader.displayHTTPHeader();
