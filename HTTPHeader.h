@@ -12,10 +12,10 @@ protected:
 	std::map<std::string, std::string>ApplicationMap;
 
 private:
-	std::string key;
-	std::string value;
-	std::string textLine;
-	std::string outputString;
+	std::string key; // temporary key value used to populate the map
+	std::string value; // temporary value used to populate the map
+	std::string textLine; // textline parsed from the text file
+	std::string outputString; // string variable used to grab the string output from this header
 	int wordCount = 0;
 
 public:
@@ -31,7 +31,8 @@ public:
 
 
 	void readFile() {
-		std::ifstream testFile("testingInput.txt");
+		//reads the text file and populates based on the text file
+		std::ifstream testFile("testingInput.txt"); //make sure to change this string value to the text file's name
 		if (testFile.is_open()) {
 			std::string testString;
 			int testStrLength;
@@ -69,11 +70,11 @@ public:
 
 	}
 
-	void displayHTTPHeader() {
+	void displayHTTPHeader() { //displays the header information
 		std::cout << getHTTPHeaderString();
 	}
 
-	std::string getHTTPHeaderString() {
+	std::string getHTTPHeaderString() { //returns the string equivalent of this class' information
 		return outputString;
 	}
 	
